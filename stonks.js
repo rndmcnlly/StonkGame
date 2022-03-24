@@ -13,10 +13,6 @@ class Trading extends Engine.Scene {
 
 
     update(time) {
-        if(this.trading == false) {
-            return;
-        }
-
         this.price = 100+20*Math.sin(time/1000);
 
         this.engine.show(JSON.stringify({
