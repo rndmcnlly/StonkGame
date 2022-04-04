@@ -1,5 +1,16 @@
-class Trading extends Engine.Scene {
+class Introduction extends Engine.Scene {
+    setup() {
+        this.engine.setTitle("Stonks 4.0");
+        this.engine.addAction("begin");
+        this.engine.show("Get ready to trade!");
+    }
 
+    handleAction() {
+        this.engine.gotoScene(Trading);
+    }
+}
+
+class Trading extends Engine.Scene {
     setup() {
         this.stonks = 0;
         this.cash = 1000;
@@ -13,42 +24,31 @@ class Trading extends Engine.Scene {
 
 
     update(time) {
-        this.price = 100+20*Math.sin(time/1000);
+        if (Math.random() < 0.05) {
+            this.price = 100 + 20 * Math.sin(time / 1000.0);
+        }
 
         this.engine.show(JSON.stringify({
-            stonks: this.stonks,
-            cash: this.cash,
-            price: this.price
+            stonks: this.stonks + " STONK",
+            cash: "$" + this.cash.toFixed(2),
+            price: "$" + this.price.toFixed(2)
         }, null, 1));
     }
 
     handleAction(action) {
-        if(action == "buy" && this.cash > this.price) {
+        if (action == "buy" && this.cash > this.price) {
             this.stonks += 1;
             this.cash -= this.price;
         }
 
-        if(action == "sell" && this.stonks > 0) {
+        if (action == "sell" && this.stonks > 0) {
             this.stonks -= 1;
             this.cash += this.price;
         }
 
-        if(this.cash > 2000) {
-            this.engine.show('Cash > $2k, noice!');
+        if (this.cash > 2000) {
             this.engine.gotoScene(Victory);
         }
-    }
-}
-
-class Introduction extends Engine.Scene {
-    setup() {
-        this.engine.setTitle("Stonks 3.0");
-        this.engine.addAction("go!");
-        this.engine.show("Are you ready to trade?");
-    }
-
-    handleAction() {
-        this.engine.gotoScene(Trading);
     }
 }
 
