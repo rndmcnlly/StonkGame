@@ -56,7 +56,7 @@ class Victory extends Engine.Scene {
     setup() {
         this.engine.setTitle("Victory");
         this.engine.addAction("replay");
-        this.engine.show("Noice! Play again?");
+        this.engine.show("Nice! Play again?");
     }
 
     handleAction() {
